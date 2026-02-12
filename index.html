@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>岭南木韵 - 刻绘非遗时光</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --paper-color: #f5f0e1;
+            --wood-dark: #4a3728;
+            --accent-orange: #d97706;
+        }
+
+        body {
+            background-color: var(--paper-color);
+            color: var(--wood-dark);
+            font-family: 'Noto Serif SC', serif;
+            background-image: url('https://www.transparenttextures.com/patterns/handmade-paper.png');
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .calligraphy { font-family: 'Zhi+Mang+Xing', cursive; }
+        
+        /* 核心：透明PNG融合效果 */
+        .blend-img { mix-blend-mode: multiply; background: transparent !important; }
+
+        /* 页面切换逻辑 */
+        .page-content { display: none; }
+        .page-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 导航激活状态 */
+        .nav-link { position: relative; cursor: pointer; transition: all 0.3s; opacity: 0.6; }
+        .nav-link:hover { opacity: 1; color: var(--accent-orange); }
+        .nav-link.active { opacity: 1; font-weight: 900; color: var(--accent-orange); }
+        .nav-link.active::after {
+            content: ''; position: absolute; width: 100%; height: 2px;
+            bottom: -4px; left: 0; background-color: var(--accent-orange);
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- 导航栏 -->
+    <header class="container mx-auto px-10 py-10 flex items-center justify-between relative z-50">
+        <div class="flex items-center space-x-5 cursor-pointer" onclick="showPage('home')">
+            <div class="w-16 h-16">
+                <img src="logo.png" alt="Logo" class="w-full h-full object-contain blend-img">
+            </div>
+            <div>
+                <h1 class="text-3xl font-bold calligraphy tracking-tight">岭南木韵</h1>
+                <p class="text-[10px] uppercase tracking-[0.4em] opacity-30 font-bold">Lingnan Woodcut Rhyme</p>
+            </div>
+        </div>
+        
+        <nav class="hidden md:flex items-center space-x-12 text-sm tracking-widest">
+            <span class="nav-link active" id="nav-home" onclick="showPage('home')">首页</span>
+            <span class="nav-link" id="nav-about" onclick="showPage('about')">关于我们</span>
+            <span class="nav-link" id="nav-workshop" onclick="showPage('workshop')">木韵工坊</span>
+            <span class="nav-link" id="nav-products" onclick="showPage('products')">文创产品</span>
+            <span class="nav-link" id="nav-news" onclick="showPage('news')">新闻动态</span>
+            <span class="nav-link px-8 py-2 bg-wood-dark text-white rounded-full hover:bg-orange-900 transition-all shadow-lg" id="nav-contact" onclick="showPage('contact')">联系我们</span>
+        </nav>
+    </header>
+
+    <!-- 页面主体内容 -->
+    <main id="main-container" class="flex-grow">
+        
+        <!-- 【首页】 -->
+        <div id="page-home" class="page-content active">
+            <section class="container mx-auto px-6 mb-20">
+                <div class="relative rounded-[4rem] overflow-hidden min-h-[600px] flex items-center shadow-2xl border border-white/30">
+                    <div class="absolute inset-0 z-0">
+                        <img src="1.png" alt="Hero Background" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-r from-white/90 via-white/40 to-transparent"></div>
+                    </div>
+                    <div class="relative z-10 w-full md:w-1/2 ml-10 md:ml-28 p-14 rounded-[2.5rem] glass-panel border-l-8 border-orange-800/20">
+                        <h2 class="text-6xl md:text-7xl font-bold leading-tight mb-8 calligraphy text-stone-900">岭南木韵，<br>刻绘非遗时光</h2>
+                        <p class="text-xl text-stone-700 max-w-sm mb-12 leading-relaxed opacity-80">以木为纸，以刀为笔。让指尖流转的传统木版画技艺，在当代审美中重获新生。</p>
+                        <button onclick="showPage('workshop')" class="bg-stone-900 text-white px-12 py-4 rounded-full text-xs font-bold tracking-widest hover:bg-orange-900 transition-all shadow-2xl">探索千年技艺 ➜</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 首页下方的三个板块 -->
+            <section class="container mx-auto px-10 pb-32 grid grid-cols-1 lg:grid-cols-3 gap-24">
+                <!-- 壹. 木韵工坊 -->
+                <div>
+                    <div class="flex items-center mb-8 border-b-2 border-orange-800/10 pb-4">
+                        <span class="text-orange-800 font-bold text-xl calligraphy">壹.</span>
+                        <h3 class="text-2xl font-bold tracking-tight ml-2">木韵工坊</h3>
+                    </div>
+                    <div class="h-48 flex items-center gap-4 mb-6">
+                        <img src="sket.png" class="w-1/3 h-32 object-contain blend-img">
+                        <img src="exe.png" class="w-1/3 h-32 object-contain blend-img">
+                        <img src="crav.png" class="w-1/3 h-32 object-contain blend-img">
+                    </div>
+                    <p class="text-sm opacity-60">基于岭南传统木版画工艺流程，从绘稿落墨到操刀刻板。每一道工序皆是匠心对艺术灵魂的深度唤醒。</p>
+                </div>
+                <!-- 贰. 热门文创 -->
+                <div>
+                    <div class="flex items-center mb-8 border-b-2 border-orange-800/10 pb-4">
+                        <span class="text-orange-800 font-bold text-xl calligraphy">贰.</span>
+                        <h3 class="text-2xl font-bold tracking-tight ml-2">热门文创</h3>
+                    </div>
+                    <div class="h-48 flex items-center gap-8 mb-6">
+                        <img src="文创1.png" class="w-1/2 h-full object-contain blend-img">
+                        <div class="w-1/2 flex flex-col justify-between h-full">
+                            <img src="文创2.png" class="h-[45%] object-contain blend-img">
+                            <img src="文创3.png" class="h-[45%] object-contain blend-img">
+                        </div>
+                    </div>
+                    <p class="text-sm opacity-60">我们将木版画艺术转化为现代日常。无论是精巧的画框，还是承载情怀的帆布袋，让艺术触手可及。</p>
+                </div>
+                <!-- 叁. 品牌故事 -->
+                <div>
+                    <div class="flex items-center mb-8 border-b-2 border-orange-800/10 pb-4">
+                        <span class="text-orange-800 font-bold text-xl calligraphy">叁.</span>
+                        <h3 class="text-2xl font-bold tracking-tight ml-2">品牌故事</h3>
+                    </div>
+                    <div class="h-48 flex justify-around items-center mb-6">
+                        <img src="front.png" class="w-16 h-16 object-contain blend-img">
+                        <img src="side.png" class="w-16 h-16 object-contain blend-img">
+                        <img src="back.png" class="w-16 h-16 object-contain blend-img">
+                    </div>
+                    <p class="text-sm opacity-60 italic">“岭南木韵”旨在通过现代设计语境，重新赋能传统木版画。让非遗不仅活在博物馆，更真正走进生活。</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- 【关于我们】 -->
+        <div id="page-about" class="page-content">
+            <section class="container mx-auto px-10 py-16">
+                <h2 class="text-4xl font-bold calligraphy mb-10 text-orange-900">品牌起源</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                    <div class="bg-stone-200/50 rounded-3xl p-10 border border-stone-300/30">
+                        <p class="text-lg leading-relaxed mb-6 italic opacity-80">“一刀一木见匠心，一印一色绘年华。”</p>
+                        <p class="mb-4">岭南木版画的历史渊源深厚，其独特的刀法与印记曾是广府市井文化与艺术传播的重要载体。</p>
+                        <p class="mb-8 opacity-70">今天，我们在这座百年老宅中创立“岭南木韵”，不仅是为了复刻这些技艺，更是为了让木质的温暖与拓印的感动重新回归现代人的内心。</p>
+                    </div>
+                    <img src="bg.png" alt="品牌工作室实景" class="w-full h-full aspect-video object-cover rounded-3xl shadow-lg border border-stone-300/30">
+                </div>
+            </section>
+        </div>
+
+        <!-- 【木韵工坊 - 详情页】 -->
+        <div id="page-workshop" class="page-content">
+            <section class="container mx-auto px-10 py-16 text-center">
+                <h2 class="text-4xl font-bold calligraphy mb-12">工坊实录</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div class="p-8 glass-panel rounded-3xl">
+                        <img src="sket.png" class="h-24 mx-auto mb-6 blend-img">
+                        <h4 class="font-bold mb-4">第一步：绘图落墨</h4>
+                        <p class="text-xs opacity-60">将自然之灵转化为纸上的白描线稿，为刻板定下基调。</p>
+                    </div>
+                    <div class="p-8 glass-panel rounded-3xl">
+                        <img src="exe.png" class="h-24 mx-auto mb-6 blend-img">
+                        <h4 class="font-bold mb-4">第二步：操刀刻板</h4>
+                        <p class="text-xs opacity-60">以刀代笔，在木板上镌刻出细腻生动的线条与明暗。</p>
+                    </div>
+                    <div class="p-8 glass-panel rounded-3xl">
+                        <img src="crav.png" class="h-24 mx-auto mb-6 blend-img">
+                        <h4 class="font-bold mb-4">第三步：敷墨拓印</h4>
+                        <p class="text-xs opacity-60">施以墨彩，在纸木交融间跃然呈现最终的灵动与质感。</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 【文创产品 - 详情页】 -->
+        <div id="page-products" class="page-content">
+            <section class="container mx-auto px-10 py-16">
+                <h2 class="text-4xl font-bold calligraphy mb-12">产品目录</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+                    <div class="group cursor-pointer">
+                        <div class="bg-white/40 p-8 rounded-3xl border border-stone-200 mb-4 group-hover:shadow-xl transition-all">
+                            <img src="文创1.png" class="w-full h-32 object-contain blend-img">
+                        </div>
+                        <p class="font-bold">木版画笔记</p>
+                    </div>
+                    <div class="group cursor-pointer">
+                        <div class="bg-white/40 p-8 rounded-3xl border border-stone-200 mb-4 group-hover:shadow-xl transition-all">
+                            <img src="文创2.png" class="w-full h-32 object-contain blend-img">
+                        </div>
+                        <p class="font-bold">非遗徽章</p>
+                    </div>
+                    <div class="group cursor-pointer">
+                        <div class="bg-white/40 p-8 rounded-3xl border border-stone-200 mb-4 group-hover:shadow-xl transition-all">
+                            <img src="文创3.png" class="w-full h-32 object-contain blend-img">
+                        </div>
+                        <p class="font-bold">拓印帆布袋</p>
+                    </div>
+                    <div class="flex items-center justify-center bg-stone-100/30 rounded-3xl border border-dashed border-stone-300">
+                        <p class="text-[10px] opacity-30 tracking-widest uppercase">更多新品<br>研发中</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 【新闻动态】 -->
+        <div id="page-news" class="page-content">
+            <section class="container mx-auto px-10 py-16 max-w-4xl">
+                <h2 class="text-4xl font-bold calligraphy mb-12 text-center">最新动向</h2>
+                <div class="space-y-12">
+                    <div class="flex gap-10 items-center border-b border-stone-300/30 pb-10">
+                        <img src="体验版本.png" alt="小程序体验版" class="w-32 h-32 object-cover bg-stone-300 flex-shrink-0 rounded-2xl shadow-sm">
+                        <div>
+                            <span class="text-[10px] text-orange-800 font-bold">2025.12.01</span>
+                            <h4 class="text-xl font-bold my-2">岭南木韵小程序体验版正式上线</h4>
+                            <p class="text-sm opacity-50">欢迎体验我们的全新线上平台，随时随地感受非遗木版画的魅力与文创好物。</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-10 items-center border-b border-stone-300/30 pb-10">
+                        <img src="冬季.png" alt="冬季公开课" class="w-32 h-32 object-cover bg-stone-300 flex-shrink-0 rounded-2xl shadow-sm">
+                        <div>
+                            <span class="text-[10px] text-orange-800 font-bold">2025.11.15</span>
+                            <h4 class="text-xl font-bold my-2">冬季木版画公开课现已开启报名</h4>
+                            <p class="text-sm opacity-50">欢迎来到我们的工坊，体验从绘稿、刻板到拓印的艺术蜕变过程。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 【联系我们】 -->
+        <div id="page-contact" class="page-content">
+            <section class="container mx-auto px-10 py-16">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-stretch">
+                    <!-- 左侧：文字信息框 -->
+                    <div class="bg-stone-900 text-stone-200 p-12 rounded-[3rem] shadow-2xl h-full flex flex-col justify-center">
+                        <h2 class="text-4xl font-bold calligraphy mb-10 text-white">联系我们</h2>
+                        <div class="space-y-8">
+                            <div>
+                                <h4 class="text-xs opacity-40 uppercase tracking-widest mb-1">地址</h4>
+                                <p class="text-lg">广东省广州市荔湾区非遗文创园 108 号</p>
+                            </div>
+                            <div>
+                                <h4 class="text-xs opacity-40 uppercase tracking-widest mb-1">邮箱</h4>
+                                <p class="text-lg">hello@lingnanwood.com</p>
+                            </div>
+                            <div>
+                                <h4 class="text-xs opacity-40 uppercase tracking-widest mb-1">社交媒体</h4>
+                                <p class="text-lg">微信公众号 / 抖音：岭南木韵</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 右侧：图片展示框 (高度限制+顶部对齐裁剪) -->
+                    <div class="rounded-[3rem] overflow-hidden shadow-2xl border border-stone-300/30 h-full min-h-[350px]">
+                        <img src="联系我们.png" alt="联系我们图片" class="w-full h-full object-cover object-top">
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-stone-900 text-stone-500 py-16 mt-20 relative">
+        <div class="container mx-auto px-10 flex flex-col md:flex-row justify-between items-center gap-10 relative z-10">
+            <div>
+                <h4 class="calligraphy text-3xl text-stone-200 mb-2">岭南木韵</h4>
+                <p class="text-[10px] opacity-30 tracking-[0.5em] font-bold">HERITAGE · CRAFT · LIFE</p>
+            </div>
+            
+            <div class="flex space-x-12 text-[10px] font-black uppercase tracking-[0.5em]">
+                <a href="#" class="hover:text-orange-500 transition-colors">WeChat</a>
+                <a href="#" class="hover:text-orange-500 transition-colors">TikTok</a>
+                <a href="#" class="hover:text-orange-500 transition-colors">Pinterest</a>
+            </div>
+
+            <div class="bg-stone-800 rounded-full px-6 py-2 border border-stone-700 text-stone-300 text-[10px] tracking-widest">
+                官方商城入口 ➜
+            </div>
+        </div>
+        <div class="absolute bottom-0 left-0 w-full h-2 bg-gradient-to-r from-orange-900 to-red-900 opacity-50"></div>
+    </footer>
+
+    <!-- 【JavaScript 控制页面跳转逻辑】 -->
+    <script>
+        function showPage(pageId) {
+            // 1. 隐藏所有页面
+            const pages = document.querySelectorAll('.page-content');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // 2. 显示目标页面
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            // 3. 更新导航栏文字的激活状态
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            const activeNav = document.getElementById('nav-' + pageId);
+            if (activeNav) {
+                activeNav.classList.add('active');
+            }
+
+            // 4. 跳转后自动回到顶部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>
